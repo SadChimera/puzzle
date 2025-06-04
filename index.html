@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>45-Piece Puzzle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>🧩 Puzzle Game</h1>
+  <div class="puzzle-container" id="puzzle"></div>
+
+  <script src="script.js">
+const puzzleContainer = document.getElementById("puzzle");
+const cols = 9;
+const rows = 5;
+const tileWidth = 51.11;
+const tileHeight = 75;
+const totalPieces = cols * rows;
+let positions = Array.from({ length: totalPieces }, (_, i) => i);
+
+// Shuffle the positions
+shuffleArray(positions);
+
+// Create pieces
+positions.forEach((pos) => {
+  const piece = document.createElement("div");
+  piece.classList.add("piece");
+  piece.dataset.index = pos;
+
+  const col = pos % cols;
+  const row = Math.floor(pos / cols);
+  piece.style.backgroundPosition = `-${col * tileWidth}px -${row * tileHeight}px`;
+
+  piece.draggable = true;
+  addDragEvents(piece);
+
+  puzzleContainer.appendChild(piece);
+});
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function addDragEvents(el) {
+  el.addEventListener("dragstart", dragStart);
+  el.addEventListener("dragover", dragOver);
+  el.addEventListener("drop", dropped);
+}
+
+let dragged = null;
+
+function dragStart(e) {
+  dragged = e.target;
+}
+
+function dragOver(e) {
+  e.preventDefault();
+}
+
+function dropped(e) {
+  if (dragged === e.target) return;
+
+  const from = dragged.cloneNode(true);
+  const to = e.target.cloneNode(true);
+
+  dragged.replaceWith(to);
+  e.target.replaceWith(from);
+
+  addDragEvents(to);
+  addDragEvents(from);
+
+  checkWin();
+}
+
+function checkWin() {
+  const pieces = document.querySelectorAll(".piece");
+  for (let i = 0; i < pieces.length; i++) {
+    if (parseInt(pieces[i].dataset.index) !== i) return;
+  }
+  alert("🎉 Puzzle Complete!");
+}
+
+  </script>
+</body>
+</html>

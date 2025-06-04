@@ -1,0 +1,25 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .puzzle-container {
+    width: 459.96px;
+    display: grid;
+    grid-template-columns: repeat(9, 51.11px);
+    grid-template-rows: repeat(5, 75px);
+    gap: 1px;
+    margin: auto;
+  }
+  
+  .piece {
+    width: 51.11px;
+    height: 75px;
+    background-image: url('collage.png'); /* Replace with your actual image path */
+    background-size: 459.96px 375px;
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    cursor: grab;
+  }
+  
