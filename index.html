@@ -10,6 +10,19 @@
 
   <h1>🧩 Puzzle Game</h1>
   <div class="puzzle-container" id="puzzle"></div>
+  <div id="popup" class="popup hidden">
+    <span id="popup-close">&times;</span>
+    <p id="popup-content"></p>
+  </div>
+
+  <div id="hint-container" style="position: fixed; top: 100px; right: 20px; width: 200px;">
+    <button id="hint-button">Show Hints</button>
+    <div id="hints" style="display: none; margin-top: 10px;">
+      <img src="hint1.png" alt="Hint 1" style="width: 100%; margin-bottom: 10px;">
+      <img src="hint2.png" alt="Hint 2" style="width: 100%; margin-bottom: 10px;">
+      <img src="hint3.png" alt="Hint 3" style="width: 100%;">
+    </div>
+  </div>
 
   <script>
 const puzzleContainer = document.getElementById("puzzle");
@@ -77,41 +90,6 @@ function dropped(e) {
   checkWin();
 }
 
-function checkWin() {
-  const pieces = document.querySelectorAll(".piece");
-  for (let i = 0; i < pieces.length; i++) {
-    if (parseInt(pieces[i].dataset.index) !== i) return;
-  }
-  alert("🎉 Puzzle Complete!");
-}
-function checkWin() {
-  const pieces = document.querySelectorAll(".piece");
-  for (let i = 0; i < pieces.length; i++) {
-    if (parseInt(pieces[i].dataset.index) !== i) return;
-  }
-
-  alert("🎉 Puzzle Complete!");
-
-  // Enable facts
-  pieces.forEach((piece) => {
-    piece.addEventListener("click", () => {
-      const index = parseInt(piece.dataset.index);
-      const fact = historicalFacts[index] || "No fact available for this piece.";
-      showPopup(fact);
-    });
-  });
-}
-function showPopup(text) {
-  const popup = document.getElementById("popup");
-  const content = document.getElementById("popup-content");
-  content.textContent = text;
-  popup.classList.remove("hidden");
-}
-
-document.getElementById("popup-close").addEventListener("click", () => {
-  document.getElementById("popup").classList.add("hidden");
-});
-
 const historicalFacts = [
   "Columbian Exchange (1490s): Christopher Columbus’ arrival to the Americas encouraged the trade and interaction across the Atlantic. The exchange of disease, animals, agriculture, people, and ideas; between Europe, Americas, and Africa. This was important because it laid the foundation for the future America.",
   "Pequot War (1636): The English believed it were the Pequots who killed John Stone and another unidentified trader. It occurred near Massachusetts. The war had killed many of the Pequots who were forced to assimilate to other groups. This was important because it showed the beginning tensions between the Natives and the Colonists.",
@@ -160,11 +138,44 @@ const historicalFacts = [
   "Black Lives Matter (2012): Began after the shooting of Trayon Martin in Florida, Micheal Brown in Missouri, and Eric Garner NYC. The founders of the hashtag were Alicia Garza, Patrisse Cullors, and Opal Tometi on social media. This movement is important because it brought more attention to state-sanctioned violence and racism.",
 ];
 
+function checkWin() {
+  const pieces = document.querySelectorAll(".piece");
+  for (let i = 0; i < pieces.length; i++) {
+    if (parseInt(pieces[i].dataset.index) !== i) return;
+  }
 
+  alert("🎉 Puzzle Complete!");
+
+  // Enable facts
+  pieces.forEach((piece) => {
+    piece.addEventListener("click", () => {
+      const index = parseInt(piece.dataset.index);
+      const fact = historicalFacts[index] || "No fact available for this piece.";
+      showPopup(fact);
+    });
+  });
+}
+function showPopup(text) {
+  const popup = document.getElementById("popup");
+  const content = document.getElementById("popup-content");
+  content.textContent = text;
+  popup.classList.remove("hidden");
+}
+document.getElementById("popup-close").addEventListener("click", () => {
+  document.getElementById("popup").classList.add("hidden");
+});
+const hintButton = document.getElementById("hint-button");
+const hintsDiv = document.getElementById("hints");
+
+hintButton.addEventListener("click", () => {
+  if (hintsDiv.style.display === "none") {
+    hintsDiv.style.display = "block";
+    hintButton.textContent = "Hide Hints";
+  } else {
+    hintsDiv.style.display = "none";
+    hintButton.textContent = "Show Hints";
+  }
+});
   </script>
-  <div id="popup" class="popup hidden">
-    <span id="popup-close">&times;</span>
-    <p id="popup-content"></p>
-  </div>  
 </body>
 </html>
