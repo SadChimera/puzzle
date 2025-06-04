@@ -11,7 +11,7 @@
   <h1>🧩 Puzzle Game</h1>
   <div class="puzzle-container" id="puzzle"></div>
 
-  <script src="script.js">
+  <script>
 const puzzleContainer = document.getElementById("puzzle");
 const cols = 9;
 const rows = 5;
@@ -84,7 +84,87 @@ function checkWin() {
   }
   alert("🎉 Puzzle Complete!");
 }
+function checkWin() {
+  const pieces = document.querySelectorAll(".piece");
+  for (let i = 0; i < pieces.length; i++) {
+    if (parseInt(pieces[i].dataset.index) !== i) return;
+  }
+
+  alert("🎉 Puzzle Complete!");
+
+  // Enable facts
+  pieces.forEach((piece) => {
+    piece.addEventListener("click", () => {
+      const index = parseInt(piece.dataset.index);
+      const fact = historicalFacts[index] || "No fact available for this piece.";
+      showPopup(fact);
+    });
+  });
+}
+function showPopup(text) {
+  const popup = document.getElementById("popup");
+  const content = document.getElementById("popup-content");
+  content.textContent = text;
+  popup.classList.remove("hidden");
+}
+
+document.getElementById("popup-close").addEventListener("click", () => {
+  document.getElementById("popup").classList.add("hidden");
+});
+
+const historicalFacts = [
+  "Columbian Exchange (1490s): Christopher Columbus’ arrival to the Americas encouraged the trade and interaction across the Atlantic. The exchange of disease, animals, agriculture, people, and ideas; between Europe, Americas, and Africa. This was important because it laid the foundation for the future America.",
+  "Pequot War (1636): The English believed it were the Pequots who killed John Stone and another unidentified trader. It occurred near Massachusetts. The war had killed many of the Pequots who were forced to assimilate to other groups. This was important because it showed the beginning tensions between the Natives and the Colonists.",
+  "Anglo-Dutch War (1652-1674): A series of wars between England and the United Provinces Holland over naval power. The first war involved the Navigation Acts that limited Dutch trade. The second war was over New Amsterdam and trading rights in West Africa. The third war had the Dutch acknowledge New Amsterdam as English property after the peace treaty. This was important because it showed the European tensions over power.",
+  "Spanish Encomienda System (1503): The Spanish travelled to the Americas and discovered cash crops. Developing the encomienda system that enslaved the Native Americans to work for them as the Spainards protected them. This was important because it showed the power hungry European powers that wished to profit off the land and people.",
+  "Requerimiento: This was a decree that the Native Americans saw the Christian God as their supreme god along with the Pope. If assimilated, then no violence; if not, suffrage. This was important because the Spaniards were driven to “teach” the Natives the “right god” to live by as they profited off of their slavery.",
+  "French And Indian War: The English wanted to push into the Ohio Valley which was controlled by the Iroquois and French. This led into conflict as the French and Native Nations battled against the British and Colonists. The British won after a new crown regent was appointed and improved resources and native relations. This was important because this led to the immense taxation of the colonists.",
+  "Mercantilism: It was the idea that trade, manufacturing, and production should be strictly regulated. Governments with these policies exported goods more than imported. This was important because the British empire was heavily mercantilist and this would provoke the colonists to become Americans. ", 
+  "Salutary Neglect: The British monarchy slowly reducing its oversight on the colonies. Takes place around 1690-1765. Parliament initially enforced harsh mercantilist policies until they later began their lenient policies to allow independent economic growth. This is important because the colonists enjoyed the free market and independent trading which didn’t bode well with the taxation after the Seven Years War.",
+  "Proclamation Line (1763): On the seventh of October, King George the third issued the proclamation line to stop colonists from crossing west across the Appalachian Mountains. This was to stop colonial expansion and enforce greater control over the colonists. This was important because it prevented westward expansion and gave more bitter sentiment against the British crown.",
+  "Headright System: A system in which new settlers were granted about 50 acres of land by the government. This gave rise to plantations. 17th century. This was important because this brought in many settlers and the future arrival of plantation servitude.",
+  "Boston Tea Party: December 16, 1773, in Boston, the colonists jumped three British ships and threw 342 chests of tea overboard. This was important because it emphasized the growing distrust in British power and the growing interest in independence and self-autonomy.",
+  "Loyalists: Majority of the loyalists consisted of settlers, slaves, and Native Americans. They believed in British power and protection during the American Revolution. This was important because it showed that ironically, the Americans fought for their independence and freedom while enslaving and purging minorities from equity.",
+  "Whiskey Rebellion (1794): Washington and his militia went to physically stop a rebellion by farmers and distillers who wanted to rebel against the tax. This occurred in western Pennsylvania. This was important because it showed the executive powers being put into action.",
+  "1796 Election: Candidates: John Adams, Thomas Pickney, Thomas Jefferson, and Aaron Burr fought for the presidency. John Adams won with 71 votes and Jefferson became his vice president. This event was important because it included two Federalists and two Democratic-Republicans, especially since it was Federalist John Adams and Republican Jefferson who had conflicting views.",
+  "The Great Compromise: The Great Compromise bridged both the New Jersey Plan and the Virginia Plan. It promised both equal and proportional representation. June 11 - July 16. This was important because it allowed both population and equal representation.",
+  "Cotton and Slavery: The cotton gin and the profits off of cotton gave rise to a concerning number of slavery in the South by the 1790s. This was important because it would eventually give rise to the Civil War about slavery and civil rights of blacks.",
+  "The Monroe Doctrine: It declared that the Americas had the right to defend themselves from European meddling. December 2, 1823. President Monroe declared this to Congress and established the four declarations of American protection. This was important because it established the protection from power hungry European powers from conquering American lands.",
+  "Manifest Destiny: Manifest Destiny was the notion that Americans should move west and expand democracy and freedom to the new lands. This was important because it brought up the issue of slave expansion, Native American removal, and further prosperity into the west. 19th century.",
+  "American Anti-Slavery Society: A group that emerged out of the Abolitionist movement. It wanted to unite the various abolitionist groups and allowed women participation. Formed in 1833 by Garrison, Arthur, and Lewis. This was important because it highlighted women’s rights and equality, abolition, slavery, and the fight for equal rights.",
+  "Utopias: A popular notion that a perfect society could be built in retaliation against institutions. Early 1800s. This was important because it challenged the established values and new progressive values if a society truly wanted to be utopian.",
+  "Spoils System: Rewarding members with government jobs. Associated with the Jacksonian era and Pendleton Act of 1883. This was important because it showed the corruption within politics and corporate greed because professionals weren’t being elected for their political prowess but their loyalty.",
+  "Missouri Compromise of 1820: Allowed slave and free states to coexist. This was important because it proved a heavily controversial move to allow slave and free states to exist when that shouldn’t be the case.",
+  "Kansas-Nebraska Act: Freely allowed those in Kansas and Nebraska to choose whether they should be slave or free states. 1854. This was important because it led up to Bleeding Kansas where people were willing to fight and die to prove their ideology right.",
+  "Dred Scott vs Sandford: This was a controversial move on the Supreme Court’s part who believed slavery was right and legal and that blacks don’t deserve to hold equal rights. 1857. This was important because it showed the corruption in the Senate despite the free states and the laws to protect runaways.",
+  "Slave Power Conspiracy: It was a way to motivate the northern soldiers about the rising and evil power of the South and that it was their responsibility to stop it. This was important because if the northern soldiers lost their motivations to fight for a group that rarely knew then who knows what would’ve happened.",
+  "Spoils System: Rewarding members with government jobs. Associated with the Jacksonian era and Pendleton Act of 1883. This was important because it showed the corruption within politics and corporate greed because professionals weren’t being elected for their political prowess but their loyalty.",
+  "Homestead Act of 1862: Allowed and made land cheap for people to own and settle on. Dispatched native americans and forced them on reservations away from their tribal homes. This was important because it highlighted the inherent racism and hatred towards native nations in favor of ‘progress.’",
+  "Transcontinental Railroad: Built from 1862-1869, it linked both the west and east railroads of the US. It allowed for faster transportation but displaced many native nations from their homes. This was important because while it did bring greater economy and speed, it ignored the suffrage of native americans.",
+  "Dawes Act: It forced many native americans to take up space in reservations and assimilate into American culture. February 8, 1887; sponsored by Henry Dawes. This was important because it was considered the most vile and largest land grab in the US as well as the racism involved with displacing natives from their homes.",
+  "Laissez-faire Capitalism: The idea that business should be lenient, non-regulated, free in order to promote the growth of capitalism and business. This was important because it brought about concepts like social Darwinism, philanthropy, unions, and strikes.",
+  "Populism: Otherwise known as the People’s Party emerged to unite both black and white farmers, every farmer across the nation to unite against the unjust railroads. This was important because it showed the unfair taxation on farmers, the mechanization of agriculture, and the attempts to hold a voice in the political field.",
+  "Jim Crow Laws: Racist laws that were enforced to ensure that blacks were held to a ‘lesser’ social standing amidst the white South. Mid 1950s. This was important because it showed that despite everything, the civil war and reforms, racism persisted through the loopholes the South found and across the nation.",
+  "Prohibition Party: Founded in 1869, it was created in an attempt to ban the sale and manufacturing of alcoholic beverages. This was important because it gave rise to illegal alcohol, crime, and violence inside the cities.",
+  "The Harlem Renaissance: The Great Migration of black persons inhabiting the cities gave rise to new forms of arts and representation from the black community. This was important because it asserted black identity, values, and cultures that were once seen as terrible. 1920s.",
+  "The Great Depression: Began as a result of endless spending on stocks and goods; eventually leading to debts and poverty. The stock market crashed on October 21, 1929. This was important because it marked a great change in the way the consumers perceive money, capital, and a new role the government will take to ensure the protection of working citizens.",
+  "Spy Trials and McCarthyism (1948): Individuals like Alger Hiss and the Rosenbergs were accused of Communism under McCarthyism. McCarthy led people to believe about the Communist infiltration into American livelihood. This event was important because it showed the fear of communism spreading into the “religious, capitalist, free” America during the Cold War.",
+  "Space Race (1950s): America and Russia were the main enemies in creating the race. Sputnik 1 launched on Oct. 4, 1975 then Sputnik 2 on November 3, 1957, which forced the Americans to rebuild interest in science and math fields to reconstruct better space objects. This was important because it highlighted the non-physical yet sociopolitical tensions between the two great superpowers who wanted to outdo the other.",
+  "Montgomery Bus Boycott (December 1955-1956): Rosa Parks seated herself in a bus seat and refused to give it to a white man. She was arrested afterwards but her case gave light to the inequalities in the south. This encouraged many blacks and a few whites to boycott the buses. This is important because it was considered one of the first roots to the civil rights movement.",
+  "Women’s Liberation Movement (1960s-1970s): Women sought to achieve more public rights and equality as much as their male counterparts. Groups like NOW and Redstockings wanted equal rights and abortion rights to name a few. There were boycotts, protests, lawsuits. This was important because it obviously showed the rights to want equity and equality as much as anyone else. ",
+  "Monterey Pop Festival: The first event to emphasize the hippie movement and its values. It was important because it showed the popularity of counterculture against the norms.",
+  "Obergefell v. Hodges (2015): James Obergefell and John Arthur flew to Maryland to get married for same sex marriages which were banned in Ohio; July 11, 2013. John died as James sued the Ohio registrar and attorney general who believed Ohio’s ban on same sex marriages didn’t defy the Defense of Marriage Act. The Supreme Court and Justice Anthony Kennedy approved of same sex marriage as the blindness of sex and the rejoicing of high love. This event granted the legal right to marry the same sex and have it recognized across the US.",
+  "9/11 (9.11.2001): An Islamic terrorist group: Al Qaeda took control of four American airplanes; two crashed into the World Trade Center in NYC, one in Pennsylvania, and one into the Pentagon. 9/11 led to the creation of the Department of Homeland Security, the coined term “War on Terror”, the Iraq War, and discrimination of Muslims.",
+  "Impeachment of Bill Clinton (1998): It had been discovered that Bill Clinton was committing sexual harassment charges against two known women: Paula Jones and Monica Lewinsky (late 1993s). Kenneth Star attempted to unravel the charges and lead an impeachment against the president. But the impeachment ultimately failed as Clinton continued to serve his term and remained popular.",
+  "Earth Day (4.22.1970): This annual awareness day was created on April 22, 1970 due to the rising concerns over environmental pollution. U.S Senator Gaylord Nelson wanted more support against pollution after the Santa Barbara oil spill 1969.This led to the creation of EPA and Endangered Species Act 1973. This was important because it displayed awareness over environmental pollution.",
+  "Black Lives Matter (2012): Began after the shooting of Trayon Martin in Florida, Micheal Brown in Missouri, and Eric Garner NYC. The founders of the hashtag were Alicia Garza, Patrisse Cullors, and Opal Tometi on social media. This movement is important because it brought more attention to state-sanctioned violence and racism.",
+];
+
 
   </script>
+  <div id="popup" class="popup hidden">
+    <span id="popup-close">&times;</span>
+    <p id="popup-content"></p>
+  </div>  
 </body>
 </html>
