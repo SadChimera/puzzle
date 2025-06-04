@@ -38,19 +38,19 @@ body {
   }
   
   .puzzle-container {
-    width: 459.96px;
-    display: grid;
-    grid-template-columns: repeat(9, 51.11px);
-    grid-template-rows: repeat(5, 75px);
-    gap: 1px;
-    margin: auto;
+    width: calc(70px * 9); /* 9 columns */
+  display: grid;
+  grid-template-columns: repeat(9, 70px);
+  grid-template-rows: repeat(5, 103px);
+  gap: 1px;
+  margin: auto;
   }
   
   .piece {
-    width: 51.11px;
-    height: 75px;
+    width: 70px;   /* was 51.11px */
+    height: 103px; /* was 75px */
+    background-size: calc(70px * 9) calc(103px * 5);
     background-image: url('collage.png'); /* Replace with your actual image path */
-    background-size: 459.96px 375px;
     background-repeat: no-repeat;
     border: 1px solid #ccc;
     cursor: grab;
