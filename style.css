@@ -1,3 +1,36 @@
+@media (max-width: 600px) {
+    #hint-container {
+      width: 90vw; /* almost full width on mobile */
+      max-height: 50vh; /* smaller height on small devices */
+    }
+  }
+  /* For really small phones */
+@media (max-width: 480px) {
+    .puzzle-container {
+      width: 320px;
+      grid-template-columns: repeat(9, 35.5px);
+      grid-template-rows: repeat(5, 52.5px);
+    }
+    .piece {
+      width: 35.5px;
+      height: 52.5px;
+    }
+  }
+  
+  /* For tablets */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .puzzle-container {
+      width: 360px;
+      grid-template-columns: repeat(9, 40px);
+      grid-template-rows: repeat(5, 60px);
+    }
+    .piece {
+      width: 40px;
+      height: 60px;
+    }
+  }
+  
+
 body {
     font-family: sans-serif;
     text-align: center;
@@ -54,6 +87,11 @@ body {
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    max-height: 80vh; /* max height 80% of viewport height */
+  overflow-y: auto; /* add vertical scrollbar if content overflows */
+  width: 300px; /* or whatever width you want */
+  margin: 10px;
+  
   }
   
   #hint-button {
